@@ -1,0 +1,31 @@
+body {background-color: rgba(234, 229, 238, 0.884);}
+
+#like {
+    width: 50%;
+    height: 50%;
+    position: fixed;
+    right: 75px;
+    bottom: 250px;
+    /* float: right; */
+
+}
+#logo {
+    position: fixed;
+    width: 8%;
+    height: 12%;
+    top: 10px;
+    left: 8px;
+
+    /* float: right; */
+
+}
+
+body {position: fixed;
+    left: 600px;
+    bottom: 69px }
+
+h3 {
+    position: fixed;
+    left: 350px;
+    bottom: 50px;
+}
