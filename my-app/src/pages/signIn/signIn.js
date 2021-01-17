@@ -82,6 +82,7 @@ const SignIn = () => {
         fire.auth().signOut();
     };
     
+    //https://firebase.google.com/docs/auth/web/manage-users
     const AuthListener = () => {
         fire.auth().onAuthStateChanged((user) =>{
              if(user){
