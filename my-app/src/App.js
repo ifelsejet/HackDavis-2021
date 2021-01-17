@@ -3,6 +3,8 @@
 import './App.css';
 import pickPartner from './pages/pickPartner/pickPartner';
 import signIn from './pages/signIn/signIn';
+import landing from './pages/Landing/landing';
+import sign_in from './pages/Landing/sign_in';
 
 /*import Record from './pages/Record/Record';
 import React, { useRef } from "react";
@@ -28,7 +30,9 @@ function App() {
   return (
         <Router>
            <div className="App">
-            <Route path = "/" component={Home}/>
+           <landing/>
+            <Route path = "/landing" component={landing}/>
+            <Route path = "/sign_in" component={sign_in}/>
             <Route path = "/signIn" component={signIn}/>
             <Route path = "/pickPartner" component={pickPartner}/>
            
