@@ -15,9 +15,18 @@ import Home from './Home';
 /*const logB = () => {
     console.log("Testing");
 }*/
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch,
+    useParams
+  } from "react-router-dom";
 
 const SignIn = () => {
     const [user, setUser] = useState('');
+   //const [userLogin, setUserLogin] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -115,6 +124,7 @@ const SignIn = () => {
                        setHasAccount = {setHasAccount}
                        emailError = {emailError}
                        passwordError = {passwordError}
+                      
                     />
                 )      
             }

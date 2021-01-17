@@ -1,3 +1,4 @@
+
 import './landing.css';
 
 import like from './svg/exercise.svg';
@@ -19,19 +20,28 @@ import {
 
 function landing() {
   return (
-    <div className="App">
     
-      <h2>
-      <Button variant="contained" color="primary" href="#contained-buttons" right = "50px">  
-  Login </Button>
-  </h2>
+  <div className="App">
   <img src={like} id = "like" alt = 'like' />
   <img src={logo} id = "logo" alt = 'logo' />
+  <h1>Vfit</h1>
+  <h2 >Exercise virtually with each other </h2> 
+  
   <h3>
-  <Button variant="contained" color="primary"  href="#contained-buttons" >
-      Sign-up
+  </h3>
+
+  <div id = "jet" >
+  <Link to="/signIn">
+              
+            
+  <Button  style={{maxWidth: '200%', maxHeight: '45%', minWidth: '150%', minHeight: '250%'}}
+  variant="contained" color="primary"  href="#contained-buttons" >
+     Sign up to learn more!
     </Button>
-    </h3>
+    </Link>
+    </div> 
+
+    <h4>Practice social distancing right at home! </h4>
     </div>
   );
 }

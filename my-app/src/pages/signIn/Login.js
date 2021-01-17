@@ -5,7 +5,17 @@ import like from './sign_in.svg';
 
 const Login = (props) =>{
 
-    const {email, setEmail, password, setPassword, HandleLogin, HandleSignUp, hasAccount, setHasAccount, emailError, passwordError} = props;
+    const {email,
+         setEmail,
+          password,
+           setPassword,
+            HandleLogin,
+             HandleSignUp,
+              hasAccount,
+               setHasAccount,
+                emailError,
+                 passwordError,
+                } = props;
     return(
 
         <section className = "login">

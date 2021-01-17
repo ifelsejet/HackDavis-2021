@@ -1,4 +1,5 @@
 import React from 'react';
+import './signIn.css';
 
 const Home = ({HandleLogOut}) =>{
     return(
