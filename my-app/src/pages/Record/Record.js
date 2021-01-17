@@ -1,90 +1,113 @@
-import React, { Component } from "react";
-import * as cocoSsd from "@tensorflow-models/coco-ssd";
-import "@tensorflow/tfjs";
+import React, { useRef } from "react";
+/* import "./App.css"; */
+import * as tf from "@tensorflow/tfjs";
+import * as posenet from "@tensorflow-models/posenet";
+import Webcam from "react-webcam";
+import { drawKeypoints, drawSkeleton } from "./utils";
+/* import {drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, global_zero} from './demo-util'; */
+
+import Button from '@material-ui/core/Button';
+import history from './history';
 import "./Record.css";
 
 
-class Record extends Component {
-    state = {
-      model: null,
-      stream: null,
-      videoElement: null,
-      canvasElement: null
-    };
-    async componentDidMount() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: "user"
-          },
-          audio: false
-        });
-  
-        const model = await cocoSsd.load();
-  
-        await this.setState({
-          videoElement: this.refs.video,
-          canvasElement: this.refs.canvas,
-          stream,
-          model
-        });
-  
-        this.state.videoElement.srcObject = this.state.stream;
-        this.predictFrame();
-      } catch (err) {
-        console.log(err);
-      }
+
+
+function Record() {
+  const webcamRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  //  Load posenet
+  const runPosenet = async () => {
+    const net = await posenet.load({
+      inputResolution: { width: 640, height: 480 },
+      scale: 0.8,
+    });
+    //
+    setInterval(() => {
+      detect(net);
+    }, 100);
+  };
+
+  const detect = async (net) => {
+    if (
+      typeof webcamRef.current !== "undefined" &&
+      webcamRef.current !== null &&
+      webcamRef.current.video.readyState === 4
+    ) {
+      // Get Video Properties
+      const video = webcamRef.current.video;
+      const videoWidth = webcamRef.current.video.videoWidth;
+      const videoHeight = webcamRef.current.video.videoHeight;
+
+      // Set video width
+      webcamRef.current.video.width = videoWidth;
+      webcamRef.current.video.height = videoHeight;
+
+      // Make Detections
+      const pose = await net.estimateSinglePose(video);
+      console.log(pose);
+
+      drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
     }
-  
-    predictFrame = async () => {
-      const predictions = await this.state.model.detect(this.refs.video);
-      this.drawPredictions(predictions);
-      //recursive call
-      this.predictFrame();
-    };
-  
-    drawPredictions = predictions => {
-      const ctx = this.state.canvasElement.getContext("2d");
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      const font = "16px sans-serif";
-      ctx.font = font;
-      ctx.textBaseline = "top";
-      predictions.forEach(prediction => {
-        const x = prediction.bbox[0];
-        const y = prediction.bbox[1];
-        const width = prediction.bbox[2];
-        const height = prediction.bbox[3];
-        // Draw prediction box.
-        ctx.strokeStyle = "#fa00ff";
-        ctx.lineWidth = 4;
-        ctx.strokeRect(x, y, width, height);
-        // Draw text box.
-        ctx.fillStyle = "#fa00ff";
-        const textWidth = ctx.measureText(prediction.class).width;
-        const textHeight = parseInt(font, 10); // base 10
-        ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
-        // Draw text.
-        ctx.fillStyle = "#000000";
-        ctx.fillText(prediction.class, x, y);
-      });
-    };
-  
-    render() {
-      return (
-        <div>
-          <video
-            className="position"
-            autoPlay
-            playsInline
-            muted
-            ref="video"
-            width="600"
-            height="500"
-          />
-          <canvas className="position" ref="canvas" width="600" height="500" />
-        </div>
-      );
-    }
-  }
-  
-  export default Record;
+  };
+
+  const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
+    const ctx = canvas.current.getContext("2d");
+    canvas.current.width = videoWidth;
+    canvas.current.height = videoHeight;
+
+    drawKeypoints(pose["keypoints"], 0.9, ctx);
+    drawSkeleton(pose["keypoints"], 0.7, ctx);
+  };
+
+  runPosenet();
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <Webcam
+          ref={webcamRef}
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: -60,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            zindex: 9,
+            width: 640,
+            height: 480,
+          }}
+        />
+
+        <canvas
+          ref={canvasRef}
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            zindex: 9,
+            width: 640,
+            height: 480,
+          }}
+        />
+        
+       <div id = "end-workout">
+           <h2 id="jacks"> Jumping Jacks: --</h2>
+         <form>
+            <Button variant="contained" color="secondary" onClick={() => history.push('/')} style={{maxWidth: '60%', maxHeight: '45%', minWidth: '60%', minHeight: '45%'}}>End Workout</Button>
+          </form>
+          </div>
+         
+      </header>
+     
+    </div>
+  );
+}
+
+export default Record;

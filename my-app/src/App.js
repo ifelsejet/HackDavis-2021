@@ -4,6 +4,12 @@ import './App.css';
 import pickPartner from './pages/pickPartner/pickPartner';
 import signIn from './pages/signIn/signIn';
 
+/*import Record from './pages/Record/Record';
+import React, { useRef } from "react";
+import * as tf from "@tensorflow/tfjs";
+import * as bodyPix from "@tensorflow-models/body-pix";
+import Webcam from "react-webcam";
+import DemoRecord from './pages/Record/DemoRecord';*/
 
 //import Record from './pages/Record/Record';
 
@@ -25,6 +31,7 @@ function App() {
             <Route path = "/" component={Home}/>
             <Route path = "/signIn" component={signIn}/>
             <Route path = "/pickPartner" component={pickPartner}/>
+           
            </div>
         </Router>
   );

@@ -3,6 +3,7 @@ import React, {useState, useEffect} from "react";
 import './signIn.css';
 import fire from '../../fire';
 import Login from './Login';
+import Home from './Home';
 /*function signIn() {
   return (
     <div className="App">
@@ -23,25 +24,29 @@ const SignIn = () => {
     const [passwordError, setPasswordError] = useState('');
     const [hasAccount, setHasAccount] = useState(false);
 
-    /*const ClearInputs = () =>{
+    const ClearInputs = () =>{
         setEmail('');
         setPassword('');
-    }*/
+    }
 
-    /*const ClearError = () =>{
+    const ClearError = () =>{
         setEmailError('');
         setPasswordError('');
-    }*/
+    }
 
-    const HandleLogin = () =>{
-       // ClearError();
+    const HandleLogin = () =>{//just looking for errors
+       ClearError();
         fire
             .auth()
             .signInWithEmailAndPassword(email, password)
             .catch((err) => {
               switch (err.code) {
                     case "auth/invalid-email":
-                    case "auth/user-disabled":    
+                        setEmailError(err.message);
+                        break;  
+                    case "auth/user-disabled":
+                        setEmailError(err.message);
+                        break;      
                     case "auth/user-not-found":
                         setEmailError(err.message);
                         break;        
@@ -52,14 +57,16 @@ const SignIn = () => {
          });
     };
 
-    const HandleSignUp = () =>{
-        //ClearError();
+    const HandleSignUp = () =>{//just looking for errors
+        ClearError();
         fire
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .catch((err) => {
               switch (err.code) {
                     case "auth/email-already-in-use":
+                        setEmailError(err.message);
+                        break;
                     case "auth/invalid-email":
                         setEmailError(err.message);
                         break;
@@ -70,14 +77,14 @@ const SignIn = () => {
             });
     };
 
-    /*const HandleLogOut = () =>{
+    const HandleLogOut = () =>{
         fire.auth().signOut();
-    };*/
+    };
     
     const AuthListener = () => {
         fire.auth().onAuthStateChanged((user) =>{
              if(user){
-                 //ClearInputs();
+                 ClearInputs();
                  setUser(user);
              } else{
                  setUser("");
@@ -85,24 +92,30 @@ const SignIn = () => {
         });
     };
 
-    /*useEffect(() => {
+    useEffect(() => {
       AuthListener();  
-    }, []);*/
+    }, []);
 
     return (
         <div className="SignIn">
-            <Login 
-            email = {email}
-             setEmail = {setEmail}
-              password = {password}
-               setPassword = {setPassword}
-               HandleLogin = {HandleLogin}
-               HandleSignUp = {HandleSignUp}
-               hasAccount = {hasAccount}
-               setHasAccount = {setHasAccount}
-               emailError = {emailError}
-               passwordError = {passwordError}
-               />
+            {
+                user ? (//if a user exists then we can attempt to login if it works then we go to home page
+                    <Home HandleLogOut = {HandleLogOut}/>
+                ):(
+                    <Login 
+                    email = {email}
+                     setEmail = {setEmail}
+                      password = {password}
+                       setPassword = {setPassword}
+                       HandleLogin = {HandleLogin}
+                       HandleSignUp = {HandleSignUp}
+                       hasAccount = {hasAccount}
+                       setHasAccount = {setHasAccount}
+                       emailError = {emailError}
+                       passwordError = {passwordError}
+                    />
+                )      
+            }
         </div>
     );
 };
