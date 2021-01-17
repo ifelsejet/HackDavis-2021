@@ -4,6 +4,7 @@ import './signIn.css';
 import fire from '../../fire';
 import Login from './Login';
 import Home from './Home';
+
 /*function signIn() {
   return (
     <div className="App">
@@ -39,19 +40,19 @@ const SignIn = () => {
         fire
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .catch((err) => {
-              switch (err.code) {
+            .catch((error) => {
+              switch (error.code) {
                     case "auth/invalid-email":
-                        setEmailError(err.message);
+                        setEmailError(error.message);
                         break;  
                     case "auth/user-disabled":
-                        setEmailError(err.message);
+                        setEmailError(error.message);
                         break;      
                     case "auth/user-not-found":
-                        setEmailError(err.message);
+                        setEmailError(error.message);
                         break;        
                     case "auth/wrong-password":
-                        setPasswordError(err.message);
+                        setPasswordError(error.message);
                         break;   
               }  
          });
@@ -62,22 +63,22 @@ const SignIn = () => {
         fire
             .auth()
             .createUserWithEmailAndPassword(email, password)
-            .catch((err) => {
-              switch (err.code) {
+            .catch((error) => {
+              switch (error.code) {
                     case "auth/email-already-in-use":
-                        setEmailError(err.message);
+                        setEmailError(error.message);
                         break;
                     case "auth/invalid-email":
-                        setEmailError(err.message);
+                        setEmailError(error.message);
                         break;
                     case "auth/weak-password":
-                        setPasswordError(err.message);
+                        setPasswordError(error.message);
                         break;   
               }  
             });
     };
 
-    const HandleLogOut = () =>{
+    const HandleLogOut = () =>{//signs you out from home page
         fire.auth().signOut();
     };
     
@@ -94,7 +95,7 @@ const SignIn = () => {
 
     useEffect(() => {
       AuthListener();  
-    }, []);
+    });
 
     return (
         <div className="SignIn">

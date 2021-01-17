@@ -1,14 +1,16 @@
 import React from 'react';
+import './signIn.css';
+import like from './sign_in.svg';
 
 
 const Login = (props) =>{
 
     const {email, setEmail, password, setPassword, HandleLogin, HandleSignUp, hasAccount, setHasAccount, emailError, passwordError} = props;
-    
     return(
-       
+
         <section className = "login">
             <div className = "loginContainer">
+            <h1>VFit LogIn</h1>
                 <label>Email</label>
                 <input 
                 type ="text"
@@ -30,14 +32,17 @@ const Login = (props) =>{
                  <div className = "switchContainer">
                     {hasAccount ? ( //if account is already made
                         <>
+                         <img src={like} id = "like" alt = 'like' />
                         <button onClick = {HandleLogin}>Sign in</button>
-                        <p><span onClick = {() => setHasAccount(!hasAccount)}> Sign up </span> </p>
+                        <p>Already have an account?<span onClick = {() => setHasAccount(!hasAccount)}> Sign up </span> </p>
                         </>
+                        //p i just used to space the span to the right 
                         //switch buttons if you need to sign up or sign in
                     ) : (//if account isnt made then sign up
                         <>
+                         <img src={like} id = "like" alt = 'like' />
                         <button onClick = {HandleSignUp}>Sign up</button>
-                        <p><span onClick = {() => setHasAccount(!hasAccount)}> Sign in </span></p>
+                        <p>Don't have an account?<span onClick = {() => setHasAccount(!hasAccount)}> Sign in </span></p>
                         </>
                     )} 
                 </div>
