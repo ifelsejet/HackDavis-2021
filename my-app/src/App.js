@@ -14,6 +14,7 @@ import * as tf from "@tensorflow/tfjs";
 import * as bodyPix from "@tensorflow-models/body-pix";
 import Webcam from "react-webcam";
 import "./App.css";
+import DemoRecord from './pages/Record/DemoRecord';
 
 
 function App() {
