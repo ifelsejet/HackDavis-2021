@@ -20,6 +20,7 @@ import * as tf from "@tensorflow/tfjs";
 const color = "aqua";
 const boundingBoxColor = "red";
 const lineWidth = 2;
+var prev = 0;
 
 export const tryResNetButtonName = "tryResNetButton";
 export const tryResNetButtonText = "[New] Try ResNet50";

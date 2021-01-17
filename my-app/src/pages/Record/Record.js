@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, Component } from "react";
 /* import "./App.css"; */
 import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
@@ -7,7 +7,9 @@ import { drawKeypoints, drawSkeleton } from "./utils";
 /* import {drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, global_zero} from './demo-util'; */
 
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import history from './history';
+import ReactTimerStopwatch from 'react-stopwatch-timer';
 import "./Record.css";
 
 
@@ -51,6 +53,39 @@ function Record() {
       drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
     }
   };
+
+  class Stopwatch extends Component {
+    state = {
+      status: false,
+      runningTime: 0
+    };
+    handleClick = () => {
+      this.setState(state => {
+        if (state.status) {
+          clearInterval(this.timer);
+        } else {
+          const startTime = Date.now() - this.state.runningTime;
+          this.timer = setInterval(() => {
+            this.setState({ runningTime: Date.now() - startTime });
+          });
+        }
+        return { status: !state.status };
+      });
+    };
+    handleReset = () => {
+        clearInterval(this.timer); // new
+        this.setState({ runningTime: 0, status: false });    };
+    render() {
+      const { status, runningTime } = this.state;
+      return (
+        <div>
+          <p>{runningTime}ms</p>
+          <button onClick={this.handleClick}>{status ? 'Stop' : 'Start'}</button>
+          <button onClick={this.handleReset}>Reset</button>
+        </div>
+      );
+    }
+  }
 
   const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
     const ctx = canvas.current.getContext("2d");
@@ -99,8 +134,14 @@ function Record() {
         
        <div id = "end-workout">
            <h2 id="jacks"> Jumping Jacks: --</h2>
+           <Stopwatch />
+
          <form>
+         <ButtonGroup color="secondary" aria-label="contained primary button group">
+            <Button variant="contained" color="secondary">Start Workout</Button>
             <Button variant="contained" color="secondary" onClick={() => history.push('/')} style={{maxWidth: '60%', maxHeight: '45%', minWidth: '60%', minHeight: '45%'}}>End Workout</Button>
+
+        </ButtonGroup>            
           </form>
           </div>
          
