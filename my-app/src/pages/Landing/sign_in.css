@@ -1,20 +1,20 @@
 body {background-color: rgba(234, 229, 238, 0.884);}
 
 #like {
-    width: 50%;
-    height: 50%;
+    width: 75%;
+    height: 65%;
     position: fixed;
-    right: 75px;
+    right: -200px;
     bottom: 250px;
     /* float: right; */
 
 }
 #logo {
     position: fixed;
-    width: 8%;
-    height: 12%;
-    top: 10px;
-    left: 8px;
+    width: 15%;
+    height: 20%;
+    top: -20px;
+    left: -75px;
 
     /* float: right; */
 
