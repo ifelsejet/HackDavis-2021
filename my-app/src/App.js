@@ -9,6 +9,11 @@ import {
   useParams
 } from "react-router-dom";
 import Record from './pages/Record/Record';
+import React, { useRef } from "react";
+import * as tf from "@tensorflow/tfjs";
+import * as bodyPix from "@tensorflow-models/body-pix";
+import Webcam from "react-webcam";
+import "./App.css";
 
 
 function App() {
