@@ -199,7 +199,9 @@ export function drawHeatMapValues(heatMapValues, outputStride, canvas) {
 
   drawPoints(ctx, scaledValues, radius, color);
 }
-
+export function global_zero(){
+    prev = 0;
+  }
 export function jumping_jack_calc(keypoints, minConfidence, ctx, wko_started){
     const right_ident = keypoints[10].score > minConfidence && keypoints[14].score > minConfidence && keypoints[16].score > minConfidence;
     const left_ident = keypoints[9].score > minConfidence && keypoints[13].score > minConfidence && keypoints[15].score > minConfidence;

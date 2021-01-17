@@ -8,10 +8,12 @@ import { drawKeypoints, drawSkeleton } from "./utils";
 
 import Button from '@material-ui/core/Button';
 import history from './history';
+import "./Record.css";
 
 
 
-function App() {
+
+function Record() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -55,7 +57,7 @@ function App() {
     canvas.current.width = videoWidth;
     canvas.current.height = videoHeight;
 
-    drawKeypoints(pose["keypoints"], 0.6, ctx);
+    drawKeypoints(pose["keypoints"], 0.9, ctx);
     drawSkeleton(pose["keypoints"], 0.7, ctx);
   };
 
@@ -70,6 +72,7 @@ function App() {
             position: "absolute",
             marginLeft: "auto",
             marginRight: "auto",
+            marginTop: -60,
             left: 0,
             right: 0,
             textAlign: "center",
@@ -93,11 +96,18 @@ function App() {
             height: 480,
           }}
         />
-       
+        
+       <div id = "end-workout">
+           <h2 id="jacks"> Jumping Jacks: --</h2>
+         <form>
+            <Button variant="contained" color="secondary" onClick={() => history.push('/')} style={{maxWidth: '60%', maxHeight: '45%', minWidth: '60%', minHeight: '45%'}}>End Workout</Button>
+          </form>
+          </div>
+         
       </header>
      
     </div>
   );
 }
 
-export default App;
+export default Record;

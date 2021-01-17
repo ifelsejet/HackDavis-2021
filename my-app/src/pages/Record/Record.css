@@ -1,9 +1,7 @@
-.position {
-    position: fixed;
-    top: 0;
-    left: 0;
+#end-workout {
+  margin-top: 40%;
   }
 
-  #end-workout {
-
+  #jacks {
+    margin-top: -20%;
   }

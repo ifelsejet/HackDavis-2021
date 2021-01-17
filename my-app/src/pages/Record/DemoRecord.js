@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import dat from 'dat.gui';
 import FPSStats from 'react-fps-stats';
 
-import {drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI} from './utils';
+import {drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, global_zero} from './utils';
 function DemoRecord(){
 const videoWidth = 600;
 const videoHeight = 500;
@@ -466,6 +466,11 @@ navigator.getUserMedia = navigator.getUserMedia ||
 // kick off the demo
 bindPage();
 
+  return (
+    <div className="App">
+      
+    </div>
+  );
 }
 
 export default DemoRecord;
