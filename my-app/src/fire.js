@@ -2,7 +2,7 @@ import firebase from 'firebase';
 
 var firebaseConfig = {
     //don't push apiKey
-    apiKey: "AIzaSyClZnlIXL6TJGWPKHb1_hqb8G8op8HBhz0",
+    apiKey: ,
     authDomain: "sign-in-18009.firebaseapp.com",
     projectId: "sign-in-18009",
     storageBucket: "sign-in-18009.appspot.com",
