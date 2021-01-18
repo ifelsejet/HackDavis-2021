@@ -29,11 +29,16 @@ function landing() {
   
   <h3>
   </h3>
+
   <div id = "jet" >
-  <Button style={{maxWidth: '200%', maxHeight: '45%', minWidth: '150%', minHeight: '250%'}}
+  <Link to="/signIn">
+              
+            
+  <Button  style={{maxWidth: '200%', maxHeight: '45%', minWidth: '150%', minHeight: '250%'}}
   variant="contained" color="primary"  href="#contained-buttons" >
      Sign up to learn more!
     </Button>
+    </Link>
     </div> 
 
     <h4>Practice social distancing right at home! </h4>
