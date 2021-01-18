@@ -1,5 +1,5 @@
 
-import logo from './logo.svg';
+
 import './App.css';
 import landing from './pages/Landing/landing';
 import sign_in from './pages/Landing/sign_in';
