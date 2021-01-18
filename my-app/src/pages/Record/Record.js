@@ -18,6 +18,7 @@ import "./Record.css";
 function Record() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+  var rep_count = 0;
 
   //  Load posenet
   const runPosenet = async () => {
@@ -51,46 +52,23 @@ function Record() {
       console.log(pose);
 
       drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
+
+     
     }
+    
   };
 
-  class Stopwatch extends Component {
-    state = {
-      status: false,
-      runningTime: 0
-    };
-    handleClick = () => {
-      this.setState(state => {
-        if (state.status) {
-          clearInterval(this.timer);
-        } else {
-          const startTime = Date.now() - this.state.runningTime;
-          this.timer = setInterval(() => {
-            this.setState({ runningTime: Date.now() - startTime });
-          });
-        }
-        return { status: !state.status };
-      });
-    };
-    handleReset = () => {
-        clearInterval(this.timer); // new
-        this.setState({ runningTime: 0, status: false });    };
-    render() {
-      const { status, runningTime } = this.state;
-      return (
-        <div>
-          <p>{runningTime}ms</p>
-          <button onClick={this.handleClick}>{status ? 'Stop' : 'Start'}</button>
-          <button onClick={this.handleReset}>Reset</button>
-        </div>
-      );
-    }
-  }
-
+ 
   const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
     const ctx = canvas.current.getContext("2d");
     canvas.current.width = videoWidth;
     canvas.current.height = videoHeight;
+   
+        
+        rep_count = rep_count + drawKeypoints((pose["keypoints"], 0.9, ctx));
+        console.log("YERRR:" + rep_count);
+        
+
 
     drawKeypoints(pose["keypoints"], 0.9, ctx);
     drawSkeleton(pose["keypoints"], 0.7, ctx);
@@ -107,7 +85,7 @@ function Record() {
             position: "absolute",
             marginLeft: "auto",
             marginRight: "auto",
-            marginTop: -60,
+            marginTop: -70,
             left: 0,
             right: 0,
             textAlign: "center",
@@ -123,6 +101,7 @@ function Record() {
             position: "absolute",
             marginLeft: "auto",
             marginRight: "auto",
+            marginTop: -70,
             left: 0,
             right: 0,
             textAlign: "center",
@@ -134,8 +113,6 @@ function Record() {
         
        <div id = "end-workout">
            <h2 id="jacks"> Jumping Jacks: --</h2>
-           <Stopwatch />
-
          <form>
          <ButtonGroup color="secondary" aria-label="contained primary button group">
             <Button variant="contained" color="secondary">Start Workout</Button>
