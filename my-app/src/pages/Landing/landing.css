@@ -28,9 +28,9 @@ body {background-color: rgba(234, 229, 238, 0.884);}
 
 h1{
     position: fixed;
-    top: 200px;
-    left: 350px;
-    font-size: 140px;
+    top: 1px;
+    left: 375px;
+    font-size: 90px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color:rgb(57, 90, 235);
 }
