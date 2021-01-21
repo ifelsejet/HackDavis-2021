@@ -5,7 +5,7 @@ const Home = ({HandleLogOut}) =>{
     return(
         <section className = "home">
             <nav>
-                <h2>Welcome</h2>
+                <h2>Welcome To vFit</h2>
                 <button onClick = {HandleLogOut}>Logout</button>
             </nav>
         </section>

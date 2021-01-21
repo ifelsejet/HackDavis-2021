@@ -1,6 +1,3 @@
-
-
-import './App.css';
 import pickPartner from './pages/pickPartner/pickPartner';
 import signIn from './pages/signIn/signIn';
 import landing from './pages/Landing/landing';

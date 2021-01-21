@@ -142,7 +142,10 @@
   }
   
   .home nav {
-    background: #3bbb5b;
+    position: relative;
+    text-align: center;
+    top: -1000px;
+    background:  rgb(0, 183, 255);
     width: 100%;
     padding: 20px 40px;
     display: flex;
@@ -151,7 +154,13 @@
   }
   
   .home nav h2 {
-    color: #fff;
+    position: relative;
+    text-align: center;
+    top: -15px;
+   
+    font-family: Cursive;
+    color: rgb(255, 255, 255);
+    right: -300px;
   }
   
   .home nav button {
